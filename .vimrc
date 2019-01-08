@@ -1,6 +1,5 @@
 set nocompatible              " be iMproved, required
 set spell spelllang=en_us
-set t_Co=256
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
@@ -20,6 +19,10 @@ Plugin 'tpope/vim-fugitive'
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
 Plugin 'git://git.wincent.com/command-t.git'
+
+Plugin 'w0rp/ale'
+
+
 " git repos on your local machine (i.e. when working on your own plugin)
 " Plugin 'file:///home/gmarik/path/to/plugin'
 " The sparkup vim script is in a subdirectory of this repo called vim.
@@ -52,23 +55,26 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 
 
-" Mappings 
+" Mappings
 map <C-n> :NERDTreeToggle<CR>
 
 
 " Variables for Plugins
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+"let g:UltiSnipsEditSplit="vertical"
 
 
 " Options for vim
-set number relativenumber 
 syntax enable
+set number relativenumber
+
+
+
+" Python options for vim that are kinda sweet for more languages as well
 set ts=4
 set autoindent
 set expandtab
@@ -80,11 +86,44 @@ set nobackup
 set nowritebackup
 set noswapfile
 set clipboard=unnamed
-colorscheme darkblue
-set background=dark
-let g:UltiSnipsExpandTrigger="<C-SPACE>"
 
-"Mappings 
+
+
+let g:UltiSnipsExpandTrigger="<C-SPACE>"
+set noerrorbells visualbell t_vb=
+let g:tex_stylish = 1
+let g:tex_flavor = 'latex'
+let g:vimtex_fold_enabled = 1
+let g:vimtex_format_enabled = 1
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_view_automatic = 0
+let g:vimtex_view_forward_search_on_start = 0
+let g:vimtex_quickfix_open_on_warning = 0
+
+let g:ale_fixers = {
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'python': ['yapf', 'isort'],
+      \ }
+
+let g:ale_fix_on_save = 1
+
+
+" Solarized options
+
+set background=dark
+colorscheme solarized
+let g:solarized_termcolors=   256
+let g:solarized_termtrans =   0
+let g:solarized_degrade   =   0
+let g:solarized_bold      =   1
+let g:solarized_underline =   1
+let g:solarized_italic    =   1
+let g:solarized_contrast  =   "normal"
+let g:solarized_visibility=   "normal"
+let g:solarized_hitrail   =   0
+let g:solarized_menu      =   1
+
+"Mappings
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -95,15 +134,5 @@ nnoremap <C-H> <C-W><C-H>
 inoremap <C-S> <ESC>:w<CR>i
 nnoremap <C-S> :w<CR>
 
-inoremap <C-Q> <ESC> :wq<CR> 
+inoremap <C-Q> <ESC> :wq<CR>
 nnoremap <C-Q> :wq<CR>
-
-
-
-
-
-
-
-
-
-
