@@ -19,9 +19,8 @@ Plugin 'tpope/vim-fugitive'
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
 Plugin 'git://git.wincent.com/command-t.git'
-
+"Plugin 'davidhalter/jedi-vim'
 Plugin 'w0rp/ale'
-
 
 " git repos on your local machine (i.e. when working on your own plugin)
 " Plugin 'file:///home/gmarik/path/to/plugin'
@@ -61,8 +60,6 @@ map <C-n> :NERDTreeToggle<CR>
 
 " Variables for Plugins
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
 "let g:UltiSnipsEditSplit="vertical"
@@ -88,8 +85,18 @@ set noswapfile
 set clipboard=unnamed
 
 
+" YouCompleteMe
+" If you prefer the Omni-Completion tip window to close when a selection is
+" made, these lines close it on movement in insert mode or when leaving
+" insert mode
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-let g:UltiSnipsExpandTrigger="<C-SPACE>"
+
+let g:UltiSnipsExpandTrigger="<c-space>"
+let g:UltiSnipsJumpForwardTrigger="<c-space>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
 set noerrorbells visualbell t_vb=
 let g:tex_stylish = 1
 let g:tex_flavor = 'latex'
@@ -104,7 +111,6 @@ let g:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
       \ 'python': ['yapf', 'isort'],
       \ }
-
 let g:ale_fix_on_save = 1
 
 
