@@ -11,6 +11,9 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'raimondi/delimitmate'
+
+
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -37,12 +40,9 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'lervag/vimtex'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-
-" All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
+" To ignore plugin indent changes, instead use: "filetype plugin on
 "
 " Brief help
 " :PluginList       - lists configured plugins
@@ -89,30 +89,47 @@ set clipboard=unnamed
 " If you prefer the Omni-Completion tip window to close when a selection is
 " made, these lines close it on movement in insert mode or when leaving
 " insert mode
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+" autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+" autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+"let g:ycm_autoclose_preview_window_after_insertion = 0
 
 
+
+" Ultisnips
 let g:UltiSnipsExpandTrigger="<c-space>"
 let g:UltiSnipsJumpForwardTrigger="<c-space>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 set noerrorbells visualbell t_vb=
+
+
+" Vim tex options
 let g:tex_stylish = 1
 let g:tex_flavor = 'latex'
 let g:vimtex_fold_enabled = 1
 let g:vimtex_format_enabled = 1
 let g:vimtex_view_method = 'zathura'
-let g:vimtex_view_automatic = 0
-let g:vimtex_view_forward_search_on_start = 0
+let g:vimtex_view_automatic = 1
 let g:vimtex_quickfix_open_on_warning = 0
 
+augroup vimtex_config
+  autocmd User VimtexEventInitPost VimtexCompile
+augroup END
+
+"Ale config
+let g:ale_linters = {
+      \'python': ['pyls']
+      \ }
 let g:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
       \ 'python': ['yapf', 'isort'],
       \ }
-let g:ale_fix_on_save = 1
 
+" If the computer is slowing down activate this entry
+" let g:ale_lint_on_text_changed = 'normal'
+let g:ale_fix_on_save = 1
+let g:ale_linter_delay = 200 "increase or decrease if need arises
 
 " Solarized options
 
@@ -129,12 +146,17 @@ let g:solarized_visibility=   "normal"
 let g:solarized_hitrail   =   0
 let g:solarized_menu      =   1
 
+
 "Mappings
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+nmap <silent> <C-u> <Plug>(ale_previous_wrap)
+nmap <silent> <C-i> <Plug>(ale_next_wrap)
+
 
 
 inoremap <C-S> <ESC>:w<CR>i
