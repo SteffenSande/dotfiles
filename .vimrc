@@ -83,6 +83,7 @@ set nobackup
 set nowritebackup
 set noswapfile
 set clipboard=unnamed
+set mouse=a
 
 
 " YouCompleteMe
@@ -92,7 +93,7 @@ set clipboard=unnamed
 " autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 " autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-"let g:ycm_autoclose_preview_window_after_insertion = 0
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 
 
@@ -124,6 +125,8 @@ let g:ale_linters = {
 let g:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
       \ 'python': ['yapf', 'isort'],
+      \ 'htmldjango': ['prettier'],
+      \ 'html': ['prettier'],
       \ }
 
 " If the computer is slowing down activate this entry
