@@ -25,6 +25,11 @@ Plugin 'git://git.wincent.com/command-t.git'
 "Plugin 'davidhalter/jedi-vim'
 Plugin 'w0rp/ale'
 
+
+" Typescript support
+Plugin 'leafgarland/typescript-vim'
+" Plugin 'quramy/tsuquyomi'
+
 " git repos on your local machine (i.e. when working on your own plugin)
 " Plugin 'file:///home/gmarik/path/to/plugin'
 " The sparkup vim script is in a subdirectory of this repo called vim.
@@ -127,6 +132,8 @@ let g:ale_fixers = {
       \ 'python': ['yapf', 'isort'],
       \ 'htmldjango': ['prettier'],
       \ 'html': ['prettier'],
+      \ 'typescript': ['prettier', 'tslint'],
+      \ 'javascript': ['prettier', 'eslint'],
       \ }
 
 " If the computer is slowing down activate this entry
