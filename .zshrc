@@ -69,6 +69,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+source ~/.bin/tmuxinator.zsh
 
 # User configuration
 
@@ -102,10 +103,11 @@ source $ZSH/oh-my-zsh.sh
 
 
 
+
 stty -ixon
 alias py='python3 '
-alias pip='pip3 ' 
-alias ja='~/eclipse/eclipse' 
+alias pip='pip3 '
+alias ja='~/eclipse/eclipse'
 alias celW='celery -A proj worker -l info'
 alias server='ssh root@165.227.136.59'
 alias mux='tmuxinator '
