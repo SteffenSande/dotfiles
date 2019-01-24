@@ -3,6 +3,8 @@
 
 # Path to your oh-my-zsh installation.
   export ZSH="/home/steffen/.oh-my-zsh"
+  export EDITOR="vim"
+  export SHELL="zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -106,6 +108,7 @@ alias pip='pip3 '
 alias ja='~/eclipse/eclipse' 
 alias celW='celery -A proj worker -l info'
 alias server='ssh root@165.227.136.59'
+alias mux='tmuxinator '
 
 
 export DERBY_HOME=/opt/glassfish4/javadb

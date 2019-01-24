@@ -12,7 +12,9 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'raimondi/delimitmate'
-
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'mlaursen/vim-react-snippets'
+Plugin 'mattn/emmet-vim'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -21,15 +23,14 @@ Plugin 'tpope/vim-fugitive'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
+"Plugin 'git://git.wincent.com/command-t.git'
 "Plugin 'davidhalter/jedi-vim'
 Plugin 'w0rp/ale'
-
-
 " Typescript support
 Plugin 'leafgarland/typescript-vim'
-" Plugin 'quramy/tsuquyomi'
+Plugin 'maxmellon/vim-jsx-pretty'
 
+" Plugin 'quramy/tsuquyomi'
 " git repos on your local machine (i.e. when working on your own plugin)
 " Plugin 'file:///home/gmarik/path/to/plugin'
 " The sparkup vim script is in a subdirectory of this repo called vim.
@@ -45,6 +46,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'lervag/vimtex'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use: "filetype plugin on
@@ -67,6 +69,7 @@ map <C-n> :NERDTreeToggle<CR>
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 
 " If you want :UltiSnipsEdit to split your window.
+" Set type of jsx to tsx
 "let g:UltiSnipsEditSplit="vertical"
 
 
@@ -74,6 +77,9 @@ map <C-n> :NERDTreeToggle<CR>
 syntax enable
 set number relativenumber
 
+
+" set filetypes as typescript.tsx
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
 
 " Python options for vim that are kinda sweet for more languages as well
@@ -129,7 +135,7 @@ let g:ale_linters = {
       \ }
 let g:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'python': ['yapf', 'isort'],
+      \ 'python': ['yapf', 'isort', 'autopep8'],
       \ 'htmldjango': ['prettier'],
       \ 'html': ['prettier'],
       \ 'typescript': ['prettier', 'tslint'],
@@ -156,9 +162,16 @@ let g:solarized_visibility=   "normal"
 let g:solarized_hitrail   =   0
 let g:solarized_menu      =   1
 
+" Tmux config
+
+let g:tmux_navigator_save_on_switch = 2
+" Disable tmux navigator when zooming the Vim pane
+let g:tmux_navigator_disable_when_zoomed = 1
+
 
 "Mappings
-
+" Might need to change this because i install the tmux navigator that might
+" write over this.
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
