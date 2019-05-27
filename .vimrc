@@ -2,6 +2,7 @@ set nocompatible              " be iMproved, required
 set spell spelllang=en_us
 filetype off                  " required
 
+let mapleader =','            " To make it easier to utilyze the leader button.
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -10,12 +11,15 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
+Plugin 'yous/vim-open-color'
 Plugin 'raimondi/delimitmate'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'mlaursen/vim-react-snippets'
 Plugin 'mattn/emmet-vim'
-
+Plugin 'rhysd/vim-grammarous'
+Plugin 'tpope/vim-markdown'
+Plugin 'noahfrederick/vim-skeleton'
+Plugin 'iamcco/markdown-preview.nvim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -93,7 +97,7 @@ let python_highlight_all = 1
 set nobackup
 set nowritebackup
 set noswapfile
-set clipboard=unnamed
+set clipboard=unnamedplus
 set mouse=a
 
 
@@ -125,9 +129,8 @@ let g:vimtex_view_method = 'zathura'
 let g:vimtex_view_automatic = 1
 let g:vimtex_quickfix_open_on_warning = 0
 
-augroup vimtex_config
-  autocmd User VimtexEventInitPost VimtexCompile
-augroup END
+" Fold level
+" set foldlevelstart=1
 
 "Ale config
 let g:ale_linters = {
@@ -144,23 +147,41 @@ let g:ale_fixers = {
 
 " If the computer is slowing down activate this entry
 " let g:ale_lint_on_text_changed = 'normal'
+" Write this in your vimrc file
+let g:ale_lint_on_text_changed = 'never'
+" You can disable this option too
+" if you don't want linters to run on opening a file
+let g:ale_lint_on_enter = 0
 let g:ale_fix_on_save = 1
-let g:ale_linter_delay = 200 "increase or decrease if need arises
+let g:ale_linter_delay = 500 "increase or decrease if need arises
 
-" Solarized options
+" Markdown 
+let g:mkdp_markdown = 'home/steffen/.local/lib/github.css'
+
+" open-color options
+if empty($TMUX) && empty($STY)
+  " See https://gist.github.com/XVilka/8346728.
+  if $COLORTERM =~# 'truecolor' || $COLORTERM =~# '24bit'
+    if has('termguicolors')
+      " See :help xterm-true-color
+      if $TERM =~# '^screen'
+        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+      endif
+      set termguicolors
+    endif
+  endif
+endif
 
 set background=dark
-colorscheme solarized
-let g:solarized_termcolors=   256
-let g:solarized_termtrans =   0
-let g:solarized_degrade   =   0
-let g:solarized_bold      =   1
-let g:solarized_underline =   1
-let g:solarized_italic    =   1
-let g:solarized_contrast  =   "normal"
-let g:solarized_visibility=   "normal"
-let g:solarized_hitrail   =   0
-let g:solarized_menu      =   1
+colorscheme open-color
+
+" Spelling highlighing
+hi clear spellBad
+hi Spellbad guifg=#af0000
+hi SpellBad cterm=underline,bold
+
+
 
 " Tmux config
 
@@ -180,6 +201,7 @@ nnoremap <C-H> <C-W><C-H>
 nmap <silent> <C-u> <Plug>(ale_previous_wrap)
 nmap <silent> <C-i> <Plug>(ale_next_wrap)
 
+nnoremap <leader>g :GrammarousCheck<CR>
 
 
 inoremap <C-S> <ESC>:w<CR>i

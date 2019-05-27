@@ -5,6 +5,7 @@
   export ZSH="/home/steffen/.oh-my-zsh"
   export EDITOR="vim"
   export SHELL="zsh"
+  export GDK_BACKEND=x11
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -65,7 +66,7 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
+  z
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -115,6 +116,9 @@ alias mux='tmuxinator '
 
 export DERBY_HOME=/opt/glassfish4/javadb
 export PATH=/opt/glassfish4/bin:$DERBY_HOME/bin:$PATH
+export PATH=/snap/bin:$PATH
+export PATH=/home/steffen/.local/bin:$PATH
+
 
 alias config='/usr/bin/git --git-dir=/home/steffen/.cfg/ --work-tree=/home/steffen'
 alias vim='vim --servername VIM '
