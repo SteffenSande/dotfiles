@@ -2,7 +2,6 @@ set nocompatible              " be iMproved, required
 set spell spelllang=en_us
 filetype off                  " required
 
-let mapleader =','            " To make it easier to utilyze the leader button.
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -44,7 +43,7 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
 Plugin 'valloric/youcompleteme'
-Plugin 'altercation/vim-colors-solarized'
+Plugin 'lifepillar/vim-solarized8'
 " Steffen's personal plugin list
 Plugin 'scrooloose/nerdtree'
 Plugin 'lervag/vimtex'
@@ -78,9 +77,24 @@ map <C-n> :NERDTreeToggle<CR>
 
 
 " Options for vim
-syntax enable
 set number relativenumber
+syntax enable
 
+
+" open-color options
+if empty($TMUX) && empty($STY)
+    " See https://gist.github.com/XVilka/8346728.
+    if $COLORTERM =~# 'truecolor' || $COLORTERM =~# '24bit'
+        if has('termguicolors')
+            " See :help xterm-true-color
+            if $TERM =~# '^screen'
+                let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+                let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+            endif
+            set termguicolors
+        endif
+    endif
+endif
 
 " set filetypes as typescript.tsx
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
@@ -100,7 +114,6 @@ set noswapfile
 set clipboard=unnamedplus
 set mouse=a
 
-
 " YouCompleteMe
 " If you prefer the Omni-Completion tip window to close when a selection is
 " made, these lines close it on movement in insert mode or when leaving
@@ -110,15 +123,12 @@ set mouse=a
 
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
-
-
 " Ultisnips
 let g:UltiSnipsExpandTrigger="<c-space>"
 let g:UltiSnipsJumpForwardTrigger="<c-space>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 set noerrorbells visualbell t_vb=
-
 
 " Vim tex options
 let g:tex_stylish = 1
@@ -129,21 +139,26 @@ let g:vimtex_view_method = 'zathura'
 let g:vimtex_view_automatic = 1
 let g:vimtex_quickfix_open_on_warning = 0
 
-" Fold level
-" set foldlevelstart=1
+nmap <silent> <C-t>  :VimtexTocOpen <Cr>
 
+" Fold level
+set foldlevelstart=3
+augroup vimtex_config
+    au!
+    au User VimtexEventQuit call vimtex#compiler#clean(0)
+augroup END
 "Ale config
 let g:ale_linters = {
-      \'python': ['pyls']
-      \ }
+            \'python': ['pyls']
+            \ }
 let g:ale_fixers = {
-      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'python': ['yapf', 'isort', 'autopep8'],
-      \ 'htmldjango': ['prettier'],
-      \ 'html': ['prettier'],
-      \ 'typescript': ['prettier', 'tslint'],
-      \ 'javascript': ['prettier', 'eslint'],
-      \ }
+            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \ 'python': ['yapf', 'isort', 'autopep8'],
+            \ 'htmldjango': ['prettier'],
+            \ 'html': ['prettier'],
+            \ 'typescript': ['prettier', 'tslint'],
+            \ 'javascript': ['prettier', 'eslint'],
+            \ }
 
 " If the computer is slowing down activate this entry
 " let g:ale_lint_on_text_changed = 'normal'
@@ -155,32 +170,26 @@ let g:ale_lint_on_enter = 0
 let g:ale_fix_on_save = 1
 let g:ale_linter_delay = 500 "increase or decrease if need arises
 
-" Markdown 
+" Markdown
 let g:mkdp_markdown = 'home/steffen/.local/lib/github.css'
+" open preview if a Markdown file is opened
+let g:mkdp_auto_start = 1
 
-" open-color options
-if empty($TMUX) && empty($STY)
-  " See https://gist.github.com/XVilka/8346728.
-  if $COLORTERM =~# 'truecolor' || $COLORTERM =~# '24bit'
-    if has('termguicolors')
-      " See :help xterm-true-color
-      if $TERM =~# '^screen'
-        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-      endif
-      set termguicolors
-    endif
-  endif
-endif
-
+colorscheme solarized8
 set background=dark
-colorscheme open-color
 
-" Spelling highlighing
-hi clear spellBad
-hi Spellbad guifg=#af0000
-hi SpellBad cterm=underline,bold
 
+"" Spelling highlighing
+"hi clear spellBad
+"hi Spellbad guifg=#af0000
+"hi SpellBad cterm=underline,bold
+
+
+""""""""""""""
+"  Nerdtree  "
+""""""""""""""
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 
 
 " Tmux config

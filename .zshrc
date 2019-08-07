@@ -11,7 +11,7 @@
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="nicoulaj"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -122,6 +122,7 @@ export PATH=/home/steffen/.local/bin:$PATH
 
 alias config='/usr/bin/git --git-dir=/home/steffen/.cfg/ --work-tree=/home/steffen'
 alias vim='vim --servername VIM '
+alias sound = 'sudo alsa force-reload'
 
 
 export SPOTIPY_CLIENT_ID='117c28312a9a4de2805062ac8a5fcf3f'
